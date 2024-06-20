@@ -25,16 +25,7 @@ func MustLoad() *Config {
 		panic("config path is not set")
 	}
 
-	if _, err := os.Stat(path); os.IsNotExist(err) {
-		panic("config file does not exist: " + path)
-	}
-
-	var cfg Config
-	if err := cleanenv.ReadConfig(path, &cfg); err != nil {
-		panic("failed to read config: " + err.Error())
-	}
-
-	return &cfg
+	return MustLoadByPath(path)
 }
 
 // fetchConfig fetches the configuration file path from the command line flag or environment variable.
@@ -52,4 +43,18 @@ func fetchConfig() string {
 	}
 
 	return res
+}
+
+func MustLoadByPath(configPath string) *Config {
+
+	if _, err := os.Stat(configPath); os.IsNotExist(err) {
+		panic("config file does not exist: " + configPath)
+	}
+
+	var cfg Config
+	if err := cleanenv.ReadConfig(configPath, &cfg); err != nil {
+		panic("failed to read config: " + err.Error())
+	}
+
+	return &cfg
 }
