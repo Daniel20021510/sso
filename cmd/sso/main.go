@@ -2,9 +2,9 @@ package main
 
 import (
 	"context"
+	"github.com/Daniel20021510/sso/internal/config"
+	"github.com/Daniel20021510/sso/pkg/logger"
 	"go.uber.org/zap"
-	"sso/internal/config"
-	"sso/pkg/logger"
 )
 
 const (
