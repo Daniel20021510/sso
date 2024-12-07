@@ -18,13 +18,13 @@ type AppRepository interface {
 type Service struct {
 	userRepository UserRepository
 	appRepository  AppRepository
-	tokenTTl       time.Duration
+	tokenTTL       time.Duration
 }
 
-func NewService(userRepository UserRepository, appRepository AppRepository, tokenTTl time.Duration) *Service {
+func NewService(userRepository UserRepository, appRepository AppRepository, tokenTTL time.Duration) *Service {
 	return &Service{
 		userRepository: userRepository,
 		appRepository:  appRepository,
-		tokenTTl:       tokenTTl,
+		tokenTTL:       tokenTTL,
 	}
 }

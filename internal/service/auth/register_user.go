@@ -9,18 +9,18 @@ import (
 // RegisterUser registers new user in the system and returns user ID.
 // If user with given username already exists, returns error.
 func (s *Service) RegisterUser(ctx context.Context, email string, pass string) (uint64, error) {
-	logger.Debugw(ctx, "registering user")
+	logger.Debugw(ctx, "registering user", "email", email)
 
 	passHash, err := bcrypt.GenerateFromPassword([]byte(pass), bcrypt.DefaultCost)
 	if err != nil {
-		logger.Errorw(ctx, "failed to hash password", "error", err)
+		logger.Errorw(ctx, "failed to hash password", "email", email, "error", err)
 
 		return 0, err
 	}
 
 	id, err := s.userRepository.SaveUser(ctx, email, passHash)
 	if err != nil {
-		logger.Errorw(ctx, "failed to save user", "error", err)
+		logger.Errorw(ctx, "failed to save user", "email", email, "error", err)
 
 		return 0, err
 	}
