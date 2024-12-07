@@ -12,6 +12,7 @@ require (
 	github.com/Daniel20021510/sso-proto v0.0.2 // indirect
 	github.com/joho/godotenv v1.5.1 // indirect
 	go.uber.org/multierr v1.10.0 // indirect
+	golang.org/x/crypto v0.13.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	olympos.io/encoding/edn v0.0.0-20201019073823-d3554ca0b0a3 // indirect
 )
