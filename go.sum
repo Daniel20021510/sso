@@ -1,5 +1,9 @@
 github.com/BurntSushi/toml v1.2.1 h1:9F2/+DoOYIOksmaJFPw1tGFy1eDnIJXg+UHjuD8lTak=
 github.com/BurntSushi/toml v1.2.1/go.mod h1:CxXYINrC8qIiEnFrOxCa7Jy5BFHlXnUU2pbicEuybxQ=
+github.com/Daniel20021510/sso-proto v0.0.1 h1:NSd2lueYUxx7QurjXfoTDqHYnpn9dgVcw/y0CbWyjn0=
+github.com/Daniel20021510/sso-proto v0.0.1/go.mod h1:dpqFQn/ffV0sbiX7D2N8+eQ5bRebP7IsycTTGhotCS0=
+github.com/Daniel20021510/sso-proto v0.0.2 h1:QifKN3hQ0S/LKmfr7WNbTsuXPFRLQXvCbM+/ex+ha88=
+github.com/Daniel20021510/sso-proto v0.0.2/go.mod h1:dpqFQn/ffV0sbiX7D2N8+eQ5bRebP7IsycTTGhotCS0=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/ilyakaznacheev/cleanenv v1.5.0 h1:0VNZXggJE2OYdXE87bfSSwGxeiGt9moSR2lOrsHHvr4=
