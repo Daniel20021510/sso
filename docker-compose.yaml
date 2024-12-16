@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
+    volumes:
+      - ./postgresql_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    command: ["postgres"]
+    environment:
+      POSTGRES_DB: sso
+      POSTGRES_USER: sso
+      POSTGRES_PASSWORD: sso
+      POSTGRES_HOST_AUTH_METHOD: trust
