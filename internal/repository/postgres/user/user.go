@@ -1,4 +1,4 @@
-package postgres
+package user_repository
 
 import (
 	"github.com/Daniel20021510/sso/internal/repository/postgres/sqlc"
@@ -10,7 +10,7 @@ type UserRepository struct {
 	conn *pgx.Conn
 }
 
-func NewUserRepository(conn *pgx.Conn) *UserRepository {
+func New(conn *pgx.Conn) *UserRepository {
 	return &UserRepository{
 		q:    sqlc_postgres.New(conn),
 		conn: conn,

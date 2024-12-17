@@ -1,8 +1,10 @@
-package auth
+package auth_grpc
 
 import (
 	"context"
+	"errors"
 	ssov1 "github.com/Daniel20021510/sso-proto/gen/go"
+	"github.com/Daniel20021510/sso/internal/repository"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -12,11 +14,11 @@ func (s *server) Register(ctx context.Context, request *ssov1.RegisterRequest) (
 		return nil, err
 	}
 
-	uid, err := s.auth.Register(ctx, request.GetEmail(), request.GetPassword())
+	uid, err := s.authService.RegisterUser(ctx, request.GetEmail(), request.GetPassword())
 	if err != nil {
-		//if errors.Is(err, storage.ErrUserExists) {
-		//	return nil, status.Error(codes.AlreadyExists, "user already exists")
-		//}
+		if errors.Is(err, repository.ErrUserExists) {
+			return nil, status.Error(codes.AlreadyExists, "user already exists")
+		}
 
 		return nil, status.Error(codes.Internal, "failed to register user")
 	}

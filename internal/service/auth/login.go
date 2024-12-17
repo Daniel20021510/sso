@@ -17,7 +17,7 @@ import (
 func (s *Service) Login(ctx context.Context, email string, password string, appID uint32) (string, error) {
 	logger.Debugw(ctx, "attempting to login user", "email", email, "app_id", appID)
 
-	user, err := s.userRepository.FindUserByEmail(ctx, email)
+	user, err := s.userRepository.FindByEmail(ctx, email)
 	if err != nil {
 		if errors.Is(err, repository.ErrUserNotFound) {
 			logger.Errorw(ctx, "user not found", "email", email, "error", err)
@@ -36,7 +36,7 @@ func (s *Service) Login(ctx context.Context, email string, password string, appI
 		return "", service.ErrInvalidCredentials
 	}
 
-	app, err := s.appRepository.FindAppByID(ctx, appID)
+	app, err := s.appRepository.FindByID(ctx, appID)
 	if err != nil {
 		if errors.Is(err, repository.ErrAppNotFound) {
 			logger.Errorw(ctx, "app not found", "email", email, "app_id", appID, "error", err)

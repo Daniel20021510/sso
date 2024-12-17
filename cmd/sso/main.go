@@ -2,9 +2,13 @@ package main
 
 import (
 	"context"
+	"github.com/Daniel20021510/sso/internal/app"
 	"github.com/Daniel20021510/sso/internal/config"
 	"github.com/Daniel20021510/sso/pkg/logger"
 	"go.uber.org/zap"
+	"os"
+	"os/signal"
+	"syscall"
 )
 
 const (
@@ -15,17 +19,26 @@ const (
 
 func main() {
 	ctx := context.Background()
-
 	cfg := config.MustLoad()
 
 	log := setupLogger(cfg.Env)
 	defer log.Sync()
 
-	logger.Infow(ctx, "Application started")
+	application := app.New(cfg.GRPC.Port, cfg.PostgresConnString, cfg.TokenTTL)
 
-	// TODO: инициализировать приложение (app)
+	application.Postgres.MustConnect()
 
-	// TODO: запустить gRPC-сервер приложения
+	go func() {
+		application.GRPCServer.MustRun()
+	}()
+
+	stop := make(chan os.Signal, 1)
+	signal.Notify(stop, syscall.SIGTERM, syscall.SIGINT)
+
+	<-stop
+
+	application.GRPCServer.Stop()
+	logger.Infow(ctx, "Gracefully stopped")
 }
 
 func setupLogger(env string) *logger.Logger {

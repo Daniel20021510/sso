@@ -1,5 +1,5 @@
 env: "local"
-storage_path: "./storage/sso.db"
+postgres_conn_string: "postgres://sso:sso@localhost:5432/sso"
 grpc:
   port: 44044
   timeout: 10h

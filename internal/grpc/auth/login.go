@@ -1,8 +1,10 @@
-package auth
+package auth_grpc
 
 import (
 	"context"
+	"errors"
 	ssov1 "github.com/Daniel20021510/sso-proto/gen/go"
+	"github.com/Daniel20021510/sso/internal/service"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -12,11 +14,11 @@ func (s *server) Login(ctx context.Context, request *ssov1.LoginRequest) (*ssov1
 		return nil, err
 	}
 
-	token, err := s.auth.Login(ctx, request.GetEmail(), request.GetPassword(), request.GetAppId())
+	token, err := s.authService.Login(ctx, request.GetEmail(), request.GetPassword(), request.GetAppId())
 	if err != nil {
-		//if errors.Is(err, auth.ErrInvalidCredentials) {
-		//	return nil, status.Error(codes.InvalidArgument, "invalid email or password")
-		//}
+		if errors.Is(err, service.ErrInvalidCredentials) {
+			return nil, status.Error(codes.InvalidArgument, "invalid email or password")
+		}
 
 		return nil, status.Error(codes.Internal, "failed to login")
 	}

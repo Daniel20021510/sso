@@ -1,4 +1,4 @@
-package postgres
+package app_repository
 
 import (
 	"github.com/Daniel20021510/sso/internal/repository/postgres/sqlc"
@@ -10,7 +10,7 @@ type AppRepository struct {
 	conn *pgx.Conn
 }
 
-func NewAppRepository(conn *pgx.Conn) *AppRepository {
+func New(conn *pgx.Conn) *AppRepository {
 	return &AppRepository{
 		q:    sqlc_postgres.New(conn),
 		conn: conn,
