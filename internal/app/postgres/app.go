@@ -43,3 +43,10 @@ func (a *App) Connect() error {
 func (a *App) Conn() *pgx.Conn {
 	return a.conn
 }
+
+// Disconnect disconnects from the database.
+func (a *App) Disconnect() {
+	logger.Infow(context.Background(), "disconnecting from database")
+
+	a.conn.Close(context.Background())
+}

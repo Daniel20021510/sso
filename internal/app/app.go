@@ -2,7 +2,7 @@ package app
 
 import (
 	"github.com/Daniel20021510/sso/internal/app/grpc"
-	postgres_app "github.com/Daniel20021510/sso/internal/app/postgres"
+	"github.com/Daniel20021510/sso/internal/app/postgres"
 	"github.com/Daniel20021510/sso/internal/repository/postgres/app"
 	"github.com/Daniel20021510/sso/internal/repository/postgres/user"
 	"github.com/Daniel20021510/sso/internal/service/auth"
@@ -16,6 +16,7 @@ type App struct {
 
 func New(grpcPort int, postgresConnString string, tokenTTL time.Duration) *App {
 	postgresApp := postgres_app.New(postgresConnString)
+	postgresApp.MustConnect()
 
 	userRepo := user_repository.New(postgresApp.Conn())
 	appRepo := app_repository.New(postgresApp.Conn())
@@ -26,5 +27,6 @@ func New(grpcPort int, postgresConnString string, tokenTTL time.Duration) *App {
 
 	return &App{
 		GRPCServer: grpcApp,
+		Postgres:   postgresApp,
 	}
 }

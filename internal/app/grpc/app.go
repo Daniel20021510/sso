@@ -3,7 +3,7 @@ package grpc_app
 import (
 	"context"
 	"fmt"
-	auth_grpc "github.com/Daniel20021510/sso/internal/grpc/auth"
+	"github.com/Daniel20021510/sso/internal/grpc/auth"
 	"github.com/Daniel20021510/sso/internal/grpc/interseptor"
 	"github.com/Daniel20021510/sso/internal/service/auth"
 	"github.com/Daniel20021510/sso/pkg/logger"
@@ -54,4 +54,11 @@ func (a *App) Run() error {
 	}
 
 	return nil
+}
+
+// Stop stops gRPC server.
+func (a *App) Stop() {
+	logger.Infow(context.Background(), "stopping gRPC server", "port", a.port)
+
+	a.gRPCServer.GracefulStop()
 }

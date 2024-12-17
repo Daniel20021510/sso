@@ -26,8 +26,6 @@ func main() {
 
 	application := app.New(cfg.GRPC.Port, cfg.PostgresConnString, cfg.TokenTTL)
 
-	application.Postgres.MustConnect()
-
 	go func() {
 		application.GRPCServer.MustRun()
 	}()
@@ -38,6 +36,7 @@ func main() {
 	<-stop
 
 	application.GRPCServer.Stop()
+	application.Postgres.Disconnect()
 	logger.Infow(ctx, "Gracefully stopped")
 }
 

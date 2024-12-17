@@ -12,7 +12,7 @@ import (
 func (ur *UserRepository) SaveUser(ctx context.Context, email string, passHash []byte) (uint64, error) {
 	id, err := ur.q.CreateUser(ctx, &sqlc_postgres.CreateUserParams{Email: email, PassHash: string(passHash)})
 	if err != nil {
-		var pgxErr pgconn.PgError
+		var pgxErr *pgconn.PgError
 		if errors.As(err, &pgxErr) && pgxErr.Code == postgres.UniqueConstraintViolation {
 			return 0, repository.ErrUserExists
 		}
